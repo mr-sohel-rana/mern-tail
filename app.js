@@ -33,7 +33,7 @@ const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 3000, standardHeaders
 app.use(limiter);
 
 // MongoDB Connection
-const mongoURI = 'mongodb://localhost:27017/MERNECOM';
+const mongoURI = 'mongodb://localhost:27017/sohel';
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB error:", err));
