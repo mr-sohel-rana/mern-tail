@@ -134,17 +134,24 @@ const user=async(req,res)=>{
 
 }
 const photo=async(req,res)=>{
-    try{
-     const {id}=req.params;
-     const user=await userModel.findById(id).select("photo");
-     if(!user){
-         res.status(400).json({status:"failed",message:"user not found"})
-     }
-     res.status(200).json({status:"success",user:user})
-    }catch(e){
-     console.error(e); // Log error for debugging
-     res.status(500).json({ status: "failed", message: "Internal Server Error" });
- }
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ status: "failed", message: "User ID is required" });
+    }
+  
+    try {
+      const user = await userModel.findById(id).select('photo');
+      if (user?.photo?.data) {
+        res.set('Content-Type', user.photo.contentType);
+        return res.status(200).send(user.photo.data);
+      }
+  
+      res.status(404).json({ status: "failed", message: "User photo not found" });
+    } catch (e) {
+      console.error("Error fetching user photo:", e);
+      res.status(500).json({ status: "failed", error: e.message });
+    }
  
  }
 const users=async(req,res)=>{
