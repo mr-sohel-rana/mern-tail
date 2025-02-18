@@ -14,6 +14,7 @@ import AdminProfile from './admin/AdminProfile';
 import AdminUpdateProfile from './admin/AdminProfileUpdate';
 import AllOrders from './admin/AllOrders';
 import AllUsers from './admin/AllUsers';
+import CreateCategory from './admin/createCategory';
  
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
        <Route path='admin/profile' element={<AdminProfile />} /> 
        <Route path='admin/update/:id' element={<AdminUpdateProfile />} /> 
        <Route path='admin/orders' element={<AllOrders />} /> 
+       <Route path='admin/create-category' element={<CreateCategory />} /> 
        <Route path='admin/users' element={<AllUsers />} /> 
 
        </Route>

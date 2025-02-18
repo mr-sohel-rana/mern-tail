@@ -17,6 +17,7 @@ const app = express();
 
 // Import Routes
 const authRoutes = require("./src/routes/api");
+ const catRoutes=require("./src/routes/categoryRoutes")
 
 // Middleware
 app.use(morgan('dev'));
@@ -40,6 +41,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // API Routes
 app.use("/api/v1", authRoutes);
+app.use("/api/v1", catRoutes)
  
  
 // Serve React Frontend

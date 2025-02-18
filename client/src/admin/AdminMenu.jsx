@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
-import { FaUser, FaEdit, FaShoppingCart } from 'react-icons/fa';
+import {  FaUsers ,FaUser, FaEdit, FaShoppingCart } from 'react-icons/fa';
+import { IoIosCreate } from "react-icons/io";
 
 const AdminMenu = () => {
   const [auth] = useAuth();
@@ -28,6 +29,30 @@ const AdminMenu = () => {
         </li>
         <li>
           <NavLink
+            to="/dashboard/admin/create-category"
+            className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
+          >
+            <IoIosCreate  className="w-5 h-5" /> Create Category
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/dashboard/admin/create-product"
+            className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
+          >
+            <IoIosCreate  className="w-5 h-5" /> Create Product
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/dashboard/admin/products"
+            className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
+          >
+            <IoIosCreate  className="w-5 h-5" />Products
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
             to="/dashboard/admin/orders"
             className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
           >
@@ -39,7 +64,7 @@ const AdminMenu = () => {
             to="/dashboard/admin/users"
             className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
           >
-            <FaShoppingCart className="w-5 h-5" /> all users
+            <FaUsers className="w-5 h-5" /> all users
           </NavLink>
         </li>
      </ul>
