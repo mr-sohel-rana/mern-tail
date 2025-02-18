@@ -15,6 +15,14 @@ router.get('/users',requireSignIn,isAdmin,controller.users)
 router.get('/photo/:id',requireSignIn,controller.photo)
 router.delete('/deleteUser/:id',requireSignIn,controller.deleteUser)
 
+router.get('/user-auth', requireSignIn, (req, res) => {
+    res.status(200).json({ ok: true });
+});
+
+router.get('/admin-auth',requireSignIn,isAdmin,(req,res)=>{
+    res.status(200).json({ ok: true });
+})
+
 
 
 module.exports=router;

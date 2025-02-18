@@ -8,7 +8,7 @@ import { useAuth } from '../../context/authContext';
 const Navbar = () => {
   const [auth, setAuth] = useAuth(); // Destructuring auth directly
   const [dropdownOpen, setDropdownOpen] = useState(false); // State to control dropdown visibility
-console.log(auth)
+ 
   const handleLogout = () => {
     // Clear auth context and localStorage on logout
     setAuth(null);
@@ -26,7 +26,7 @@ console.log(auth)
       </div>
       
       <nav className='text-xl'>
-        <ul className='flex mr-8 space-x-3.5'>
+        <ul className='flex md:mr-8   space-x-3.5'>
           {/* Shopping Cart Icon - Add a link */}
           <li>
             <Link to="/cart">
@@ -52,7 +52,7 @@ console.log(auth)
             <>
               {/* Display user name and dropdown menu */}
               <li 
-                className='text-blue-600 mr-16 cursor-pointer'
+                className='text-blue-600 mr-2 cursor-pointer'
                 onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle dropdown visibility
               >
                 <img src={`http://localhost:5001/api/v1/photo/${auth?.user?._id}`}
@@ -62,10 +62,10 @@ console.log(auth)
 
               {/* Dropdown Menu */}
               {dropdownOpen && (
-                <div className="absolute bg-white shadow-lg mt-8 right-5 p-2 rounded-md z-10">
+                <div className="absolute bg-white shadow-lg mt-8 right-0.5 md:right-5 p-2 rounded-md z-10">
                   <ul className="space-y-6">
-                    <li>
-                      <Link to="/dashboard" className="block text-blue-600 hover:text-blue-800">
+                    <li> 
+                      <Link to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : 'user'}`} className="block text-blue-600 hover:text-blue-800">
                         Dashboard
                       </Link>
                     </li>

@@ -119,20 +119,22 @@ const UpdateUser=async(req,res)=>{
         res.status(500).json({ status: "failed", message: "Internal Server Error" });
     }
 }
-const user=async(req,res)=>{
-   try{
-    const {id}=req.params;
-    const user=await userModel.findById(id).select("-photo");
-    if(!user){
-        res.status(400).json({status:"failed",message:"user not found"})
+const user = async (req, res) => {
+    try {
+     const { id } = req.params;
+     const userData = await userModel.findById(id).select("-photo");
+     
+     if (!userData) {
+         return res.status(400).json({ status: "failed", message: "user not found" });
+     }
+     
+     return res.status(200).json({ status: "success", user: userData });
+    } catch (e) {
+     console.error(e); // Log error for debugging
+     return res.status(500).json({ status: "failed", message: "Internal Server Error" });
     }
-    res.status(200).json({status:"success",user:user})
-   }catch(e){
-    console.error(e); // Log error for debugging
-    res.status(500).json({ status: "failed", message: "Internal Server Error" });
-}
-
-}
+ };
+ 
 const photo=async(req,res)=>{
     const { id } = req.params;
 

@@ -3,8 +3,8 @@ import { CiSearch } from "react-icons/ci";
 
 const SearchForm = () => {
   return (
-    <div>
-      <form className="max-w-md w-32 text-blue-600 md:w-56 lg:w-80 mx-auto rounded-full">
+    <div className="w-full flex justify-center">
+      <form className="max-w-md w-full sm:w-32 md:w-56 lg:w-80 mx-auto rounded-full">
         <div className="relative">
           {/* Search Icon */}
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -15,7 +15,7 @@ const SearchForm = () => {
           <input
             type="search"
             id="default-search"
-            className="block text-blue-700 w-full border border-gray-300 p-3 pl-10 text-sm text-blue-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="block w-full border border-gray-300 p-3 pl-10 text-sm text-blue-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
             placeholder="Search here"
             required
           />
