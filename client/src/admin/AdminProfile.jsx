@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/authContext";
 import Layout from "../components/Layout/Layout";
-import Usermenu from "./userMenu";
+ 
+import AdminMenu from "./AdminMenu";
 
-const Profile = () => {
+const AdminProfile = () => {
   const [auth] = useAuth();
   const [userData, setUserData] = useState(auth?.user || {});
   const [imageError, setImageError] = useState(false);
@@ -39,7 +40,7 @@ const Profile = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Sidebar - User Menu */}
           <div className="md:col-span-3">
-            <Usermenu />
+            <AdminMenu />
           </div>
 
           {/* Profile Info */}
@@ -76,4 +77,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default AdminProfile;

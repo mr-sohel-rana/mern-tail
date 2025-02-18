@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../src/context/authContext.jsx';
+import { useAuth } from '../context/authContext';
 import { FaUser, FaEdit, FaShoppingCart } from 'react-icons/fa';
 
-const UserMenu = () => {
+const AdminMenu = () => {
   const [auth] = useAuth();
 
   return (
@@ -12,7 +12,7 @@ const UserMenu = () => {
       <ul className="space-y-2 text-center  ">
         <li>
           <NavLink
-            to="/dashboard/user/profile"
+            to="/dashboard/admin/profile"
             className="flex gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
           >
             <FaUser className="w-5 h-5 text-center" /> Profile
@@ -20,7 +20,7 @@ const UserMenu = () => {
         </li>
         <li>
           <NavLink
-            to={`/dashboard/user/update/${auth?.user?._id}`}
+            to={`/dashboard/admin/update/${auth?.user?._id}`}
             className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
           >
             <FaEdit className="w-5 h-5" /> Update
@@ -28,15 +28,24 @@ const UserMenu = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/user/order"
+            to="/dashboard/admin/orders"
             className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
           >
-            <FaShoppingCart className="w-5 h-5" /> Orders
+            <FaShoppingCart className="w-5 h-5" /> All Orders
           </NavLink>
         </li>
-      </ul>
+        <li>
+          <NavLink
+            to="/dashboard/admin/users"
+            className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
+          >
+            <FaShoppingCart className="w-5 h-5" /> all users
+          </NavLink>
+        </li>
+     </ul>
+    
     </div>
   );
 };
 
-export default UserMenu;
+export default  AdminMenu;

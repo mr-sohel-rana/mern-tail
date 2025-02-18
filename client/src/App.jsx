@@ -8,6 +8,12 @@ import Profile from './user/Profile';
 import Dashboard from './user/Dashboard';
 import UpdateProfile from './user/UpdateProfile';
 import Orders from './user/Orders';
+import AdminRoutes from './admin/AdminRoutes';
+import AdminDashboard from './admin/AdminDashboard';
+import AdminProfile from './admin/AdminProfile';
+import AdminUpdateProfile from './admin/AdminProfileUpdate';
+import AllOrders from './admin/AllOrders';
+import AllUsers from './admin/AllUsers';
  
 
 function App() {
@@ -20,6 +26,15 @@ function App() {
        <Route path='/login' element={<Login />} /> 
        <Route path='/register' element={<Register />} /> 
 
+       {/* admin routes */}
+       <Route path='/dashboard' element={<AdminRoutes />}>
+       <Route path="admin" element={<AdminDashboard />} />
+       <Route path='admin/profile' element={<AdminProfile />} /> 
+       <Route path='admin/update/:id' element={<AdminUpdateProfile />} /> 
+       <Route path='admin/orders' element={<AllOrders />} /> 
+       <Route path='admin/users' element={<AllUsers />} /> 
+
+       </Route>
        {/* privet routes */}
        <Route path='/dashboard' element={<PrivateRoutes />}>
        <Route path="user" element={<Dashboard />} />

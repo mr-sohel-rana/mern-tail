@@ -5,9 +5,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "../components/Layout/Layout";
 import { useAuth } from "../context/authContext";
-import UserMenu from "./userMenu"; // Import UserMenu
+import AdminMenu from "./AdminMenu";
+ 
 
-const UpdateProfile = () => {
+const AdminUpdateProfile = () => {
   const { id } = useParams();  // Getting userId from the URL params
   const navigate = useNavigate();
   const [auth, setAuth] = useAuth();  // Using auth context
@@ -78,7 +79,7 @@ const UpdateProfile = () => {
       <div className="flex min-h-screen bg-gray-100">
         {/* User Menu on the Left */}
         <div className="w-1/4 bg-white shadow-lg">
-          <UserMenu /> {/* Display UserMenu here */}
+           <AdminMenu />
         </div>
 
         {/* Profile Update Form on the Right */}
@@ -160,4 +161,4 @@ const UpdateProfile = () => {
   );
 };
 
-export default UpdateProfile;
+export default AdminUpdateProfile;

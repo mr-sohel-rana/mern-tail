@@ -29,9 +29,11 @@ const Navbar = () => {
         <ul className='flex md:mr-8   space-x-3.5'>
           {/* Shopping Cart Icon - Add a link */}
           <li>
+           
             <Link to="/cart">
               <FaShoppingCart className='text-blue-600 text-3xl' />
             </Link>
+            <p className=' text-red-500 font-bold mt-[-47px] ml-5 '>99</p>
           </li>
 
           {/* Conditional rendering based on authentication */}
