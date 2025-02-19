@@ -10,14 +10,13 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const morgan = require('morgan');
- 
- 
-
+const fs = require('fs');
+const multer = require('./src/Multer/multer');
 const app = express();
-
 // Import Routes
 const authRoutes = require("./src/routes/api");
  const catRoutes=require("./src/routes/categoryRoutes")
+ const productRoutes=require("./src/routes/ProductRoutes")
 
 // Middleware
 app.use(morgan('dev'));
@@ -42,6 +41,35 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 // API Routes
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", catRoutes)
+app.use("/api/v1", productRoutes)
+
+// FOR IMAGE UPLOAD
+
+
+// Serve static files from 'uploads' directory for images
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Ensure `uploads` Directory Exists
+const uploadDir = path.join(__dirname, 'uploads');
+fs.promises.mkdir(uploadDir, { recursive: true })
+  .then(() => console.log('Uploads directory is ready'))
+  .catch(err => console.error('Error creating uploads directory:', err));
+
+// Multer Setup for File Uploads
+const multiple = multer.fields([
+  { name: 'photo1', maxCount: 1 },
+  { name: 'photo2', maxCount: 1 },
+  { name: 'photo3', maxCount: 1 },
+  { name: 'photo4', maxCount: 1 },
+  { name: 'photo5', maxCount: 1 }
+]);
+
+// Upload Route
+app.post('/uploads', multiple, (req, res) => {
+  if (!req.files) return res.status(400).json({ message: "No files uploaded" });
+  res.json({ message: "Files uploaded successfully", files: req.files });
+});
+
  
  
 // Serve React Frontend
