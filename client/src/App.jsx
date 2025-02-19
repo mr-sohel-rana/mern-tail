@@ -15,6 +15,9 @@ import AdminUpdateProfile from './admin/AdminProfileUpdate';
 import AllOrders from './admin/AllOrders';
 import AllUsers from './admin/AllUsers';
 import CreateCategory from './admin/createCategory';
+import CreateProduct from './admin/CreateProduct';
+ 
+import Products from './admin/Products';
  
 
 function App() {
@@ -34,6 +37,8 @@ function App() {
        <Route path='admin/update/:id' element={<AdminUpdateProfile />} /> 
        <Route path='admin/orders' element={<AllOrders />} /> 
        <Route path='admin/create-category' element={<CreateCategory />} /> 
+       <Route path='admin/create-product' element={<CreateProduct />} /> 
+       <Route path='admin/products' element={<Products/>} /> 
        <Route path='admin/users' element={<AllUsers />} /> 
 
        </Route>

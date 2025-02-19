@@ -1,27 +1,43 @@
 const Product = require("../models/productModel");
  
 
-const CreateProduct=async(req,res)=>{
-   try{
+const CreateProduct = async (req, res) => {
+  try {
+    const { name, description, price, category, quantity, shipping } = req.body;
+    const files = req.files;
 
-    const {name,description,price,category,quantity,shipping}=req.body;
-    const files=req.files;
-    const photos=[];
-    if(files.photo1) photos.push(files.photo1[0].filename)
-    if(files.photo2) photos.push(files.photo2[0].filename)
-    if(files.photo3) photos.push(files.photo3[0].filename)
-    if(files.photo4) photos.push(files.photo4[0].filename)
-    if(files.photo5) photos.push(files.photo5[0].filename)
+    if (!name || !description || !price || !category || !quantity || !shipping) {
+      return res.status(400).json({ status: "failed", message: "All fields are required" });
+    }
 
-      const product=new Product({
-        name,description,price,category,quantity,shipping,photos
-      });
-await product.save();
-res.status(201).json({status:"success",product:product})
-   }catch(e){
-    res.status(500).json({status:"failed",message:"server error"})
-   }
-}
+    console.log("Files received:", files); // Debugging line
+
+    const photos = [];
+    if (files.photo1) photos.push(files.photo1[0].filename);
+    if (files.photo2) photos.push(files.photo2[0].filename);
+    if (files.photo3) photos.push(files.photo3[0].filename);
+    if (files.photo4) photos.push(files.photo4[0].filename);
+    if (files.photo5) photos.push(files.photo5[0].filename);
+
+    const product = new Product({
+      name,
+      description,
+      price,
+      category,
+      quantity,
+      shipping,
+      photos
+    });
+
+    await product.save();
+    res.status(201).json({ status: "success", product });
+  } catch (e) {
+    console.error("Error creating product:", e); // Log the error details
+    res.status(500).json({ status: "failed", message: "Server error" });
+  }
+};
+
+
 const UpdateProduct = async (req, res) => {
   try {
     const { id } = req.params;
