@@ -26,7 +26,32 @@ router.put("/product-update/:id", upload.fields([
   router.get('/single-product/:id', productController.product);
   router.delete("/product-delete/:id",productController.deleteProduct)
 
- 
+  router.post('/checkout',productController.checkout)
+  router.get("/orders",requireSignIn,isAdmin,productController.orders)
+  router.get("/orders/:userId",requireSignIn,productController.order)
+  router.put("/orders/:orderId",requireSignIn,productController.updateOrderStatus)
+
+  router.delete('/api/v1/delete-image', (req, res) => {
+    const { imageName } = req.body;
+  
+    // Ensure the imageName is provided
+    if (!imageName) {
+      return res.status(400).json({ status: 'error', message: 'Image name is required' });
+    }
+  
+    // Define the image path based on your file storage location
+    const imagePath = path.join(__dirname, 'uploads', imageName);  // Adjust 'uploads' if your folder is named differently
+  
+    // Check if the file exists
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        return res.status(500).json({ status: 'error', message: 'Failed to delete image' });
+      }
+  
+      // If image deleted successfully
+      res.json({ status: 'success', message: 'Image deleted successfully' });
+    });
+  });
 
 module.exports = router;
 

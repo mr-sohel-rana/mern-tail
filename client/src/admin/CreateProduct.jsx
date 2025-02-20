@@ -121,7 +121,7 @@ const CreateProduct = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto mt-8 p-4">
+      <div className="container mt-20 mx-auto mt-8 p-4">
         <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-8">
           <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Create Product</h2>
           <form onSubmit={submitHandle}>

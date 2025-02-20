@@ -5,12 +5,16 @@ import './index.css';
 import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/authContext.jsx';
+import { CartProvider } from './context/cartContex.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-<BrowserRouter>
+<AuthProvider>
+  <CartProvider>
+  <BrowserRouter>
     <App />
   </BrowserRouter>
+  </CartProvider>
+
   </AuthProvider>
   
 );

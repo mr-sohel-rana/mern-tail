@@ -1,4 +1,7 @@
 const Product = require("../models/productModel");
+const userModel = require("../models/userModel");
+const orderModel=require('../models/OrderModel');
+const OrderModel = require("../models/OrderModel");
  
 
 const CreateProduct = async (req, res) => {
@@ -108,6 +111,113 @@ res.status(200).json({ status: "success", product:products });
   res.status(500).json({ status: "failed", message: "Server error" });
 }
 }
+const checkout = async (req, res) => {
+  try {
+    console.log(req.body); // Log the incoming request body to check if 'buyer' is correct
+
+    const { fullName, phone, email, address, city, state, zip, paymentMethod, buyer, cart, totalAmount, totalItems } = req.body;
+
+    if (!buyer) {
+      return res.status(400).json({ error: 'Buyer information is required' });
+    }
+
+    const user = await userModel.findById(buyer);
+    if (!user) {
+      return res.status(400).json({ error: 'Buyer not found' });
+    }
+
+    const newOrder = new orderModel({
+      fullName,
+      phone,
+      email,
+      address,
+      city,
+      state,
+      zip,
+      paymentMethod,
+      buyer, // Ensure that buyer is correct
+      cart,
+      totalAmount,
+      totalItems,
+    });
+
+    const order = await newOrder.save();
+    res.status(200).json(order);
+  } catch (error) {
+    console.error('Error creating order:', error);
+    res.status(500).json({ error: 'Server error while creating order' });
+  }
+}; 
+
+const orders = async (req, res) => {
+  try {
+    const orders = await OrderModel.find({})
+      .populate({
+        path: 'cart.productId', // Populate productId inside cart array
+        model: 'Product' // Reference the Product model
+      });
+
+    if (!orders || orders.length === 0) {
+      return res.status(400).json({ status: "failed", message: "Orders not found" });
+    }
+
+    res.status(200).json({ status: "success", orders });
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ error: 'Server error while fetching orders' });
+  }
+};
+
+ 
+const order=async(req,res)=>{
+try{
+  const {id}=req.params;
+  const orders=await OrderModel.find({id});
+  if(!orders){
+    res.status(400).json({status:"failed",message:"order not found"})
+  }
+  res.status(200).json({status:"success",orders:orders})
+}catch (error) {
+  console.error('Error creating order:', error);
+  res.status(500).json({ error: 'Server error while creating order' });
+}
+
+}
+
+const updateOrderStatus = async (req, res) => {
+  const { orderId } = req.params;
+  const { status } = req.body;
+
+  try {
+    // Find the order by ID and update its status
+    const updatedOrder = await OrderModel.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true } // Return the updated order
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Order not found',
+      });
+    }
+
+    // Send success response
+    res.status(200).json({
+      status: 'success',
+      message: 'Order status updated successfully',
+      order: updatedOrder,
+    });
+  } catch (error) {
+    console.error('Error updating order status:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Something went wrong while updating the order status',
+    });
+  }
+};
+
 module.exports={
-  CreateProduct,UpdateProduct,deleteProduct,product,allProduct
+  CreateProduct,UpdateProduct,deleteProduct,product,allProduct,checkout,orders,order,updateOrderStatus
 }

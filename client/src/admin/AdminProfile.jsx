@@ -27,7 +27,7 @@ const AdminProfile = () => {
   if (!userData.name) {
     return (
       <Layout>
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex mt-20 justify-center items-center min-h-screen">
           <p className="text-lg text-gray-600">Loading...</p>
         </div>
       </Layout>
@@ -36,7 +36,7 @@ const AdminProfile = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mt-20 mx-auto px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Sidebar - User Menu */}
           <div className="md:col-span-3">

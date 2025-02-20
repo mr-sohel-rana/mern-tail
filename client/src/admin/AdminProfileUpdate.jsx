@@ -76,7 +76,7 @@ const AdminUpdateProfile = () => {
 
   return (
     <Layout>
-      <div className="flex min-h-screen bg-gray-100">
+      <div className="flex mt-20 min-h-screen bg-gray-100">
         {/* User Menu on the Left */}
         <div className="w-1/4 bg-white shadow-lg">
            <AdminMenu />

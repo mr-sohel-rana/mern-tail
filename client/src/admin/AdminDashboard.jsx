@@ -9,7 +9,7 @@ const AdminDashboard = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mt-20 mx-auto px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Sidebar (User Menu) */}
           <div className="md:col-span-3">

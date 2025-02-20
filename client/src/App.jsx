@@ -6,7 +6,6 @@ import Register from './pages/Register';
 import PrivateRoutes from './user/userRoutes';
 import Profile from './user/Profile';
 import Dashboard from './user/Dashboard';
-import UpdateProfile from './user/UpdateProfile';
 import Orders from './user/Orders';
 import AdminRoutes from './admin/AdminRoutes';
 import AdminDashboard from './admin/AdminDashboard';
@@ -18,6 +17,16 @@ import CreateCategory from './admin/createCategory';
 import CreateProduct from './admin/CreateProduct';
  
 import Products from './admin/Products';
+import UpdateProduct from './admin/UpdateProduct';
+import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
+import CheckoutPage from './pages/CheckoutPage';
+ 
+ 
+import Test from './pages/test';
+ 
+ 
+ 
  
 
 function App() {
@@ -29,6 +38,10 @@ function App() {
        <Route path='/' element={<Home />} /> 
        <Route path='/login' element={<Login />} /> 
        <Route path='/register' element={<Register />} /> 
+       <Route path='/cart' element={<Cart />} /> 
+       <Route path='/details/:id' element={<ProductDetails/>} /> 
+       <Route path='/checkout' element={<CheckoutPage />} />
+       <Route path='/test' element={<Test />} />
 
        {/* admin routes */}
        <Route path='/dashboard' element={<AdminRoutes />}>
@@ -39,6 +52,7 @@ function App() {
        <Route path='admin/create-category' element={<CreateCategory />} /> 
        <Route path='admin/create-product' element={<CreateProduct />} /> 
        <Route path='admin/products' element={<Products/>} /> 
+       <Route path='admin/updateproduct/:id' element={<UpdateProduct/>} /> 
        <Route path='admin/users' element={<AllUsers />} /> 
 
        </Route>
@@ -46,7 +60,6 @@ function App() {
        <Route path='/dashboard' element={<PrivateRoutes />}>
        <Route path="user" element={<Dashboard />} />
        <Route path='user/profile' element={<Profile />} /> 
-       <Route path='user/update/:id' element={<UpdateProfile />} /> 
        <Route path='user/orders/:id' element={<Orders />} /> 
 
        </Route>
