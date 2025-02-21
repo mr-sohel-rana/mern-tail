@@ -37,7 +37,7 @@ const Products = () => {
           ) : (
             <div className="m-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
               {products.map((p) => (
-                <div className="w-36 hover:shadow-2xl h-auto border-2  p-1  rounded-md shadow-md" key={p._id}>
+                <div className="w-36 hover:shadow-2xl h-auto    p-1  rounded-md shadow-md" key={p._id}>
                   <img
                     className="w-36 h-32 "
                     src={`http://localhost:5001/uploads/${p.photos[0]}`}
