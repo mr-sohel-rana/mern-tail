@@ -1,35 +1,52 @@
-import React from 'react';
+import React from "react";
 import { CiSearch } from "react-icons/ci";
+import { useSearch } from "../../context/searchContext";
+import axios from "axios";
+ 
+import { useNavigate } from 'react-router-dom';
 
 const SearchForm = () => {
+  const [search, setSearch] = useSearch();
+  const Navigate=useNavigate();
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!search.keyword.trim()) return;
+
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5001/api/v1/search/${search.keyword}`
+      );
+      console.log(data)
+      setSearch({ ...search, result: data.result || [] });
+      Navigate('/search')
+       
+    } catch (error) {
+      console.error("Search error:", error);
+    }
+  };
+ 
+
   return (
-    <div className="w-full flex justify-center">
-      <form className="max-w-md w-full sm:w-32 md:w-56 lg:w-80 mx-auto rounded-full">
-        <div className="relative">
-          {/* Search Icon */}
-          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-            <CiSearch className="text-gray-500 text-xl" />
-          </div>
-
-          {/* Search Input */}
-          <input
-            type="search"
-            id="default-search"
-            className="block w-full border border-gray-300 p-3 pl-10 text-sm text-blue-700 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Search here"
-            required
-          />
-
-          {/* Search Button */}
-          <button
-            type="submit"
-            className="text-white absolute right-1 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Search
-          </button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSearch} className="w-full max-w-md mx-auto relative">
+      <div className="relative">
+        <CiSearch className="absolute left-3 top-3 text-gray-500 text-xl" />
+        <input
+          type="text"
+          placeholder="Search here"
+          value={search.keyword}
+          onChange={(e) => setSearch({ ...search, keyword: e.target.value })}
+          className="w-full border p-3 pl-10 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+          required
+        />
+        <button
+          type="submit"
+          className="absolute right-1 bottom-1 bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800"
+        >
+          Search
+        </button>
+      </div>
+    </form>
   );
 };
 

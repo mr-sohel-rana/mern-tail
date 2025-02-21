@@ -6,14 +6,17 @@ import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/authContext.jsx';
 import { CartProvider } from './context/cartContex.jsx';
+import { SearchProvider } from './context/searchContext.jsx';
 
 createRoot(document.getElementById('root')).render(
 <AuthProvider>
-  <CartProvider>
+ <SearchProvider>
+ <CartProvider>
   <BrowserRouter>
     <App />
   </BrowserRouter>
   </CartProvider>
+ </SearchProvider>
 
   </AuthProvider>
   

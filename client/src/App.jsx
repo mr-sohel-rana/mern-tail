@@ -24,6 +24,7 @@ import CheckoutPage from './pages/CheckoutPage';
  
  
 import Test from './pages/test';
+import Search from './pages/SearchReasult';
  
  
  
@@ -42,6 +43,7 @@ function App() {
        <Route path='/details/:id' element={<ProductDetails/>} /> 
        <Route path='/checkout' element={<CheckoutPage />} />
        <Route path='/test' element={<Test />} />
+       <Route path='/search' element={<Search />} />
 
        {/* admin routes */}
        <Route path='/dashboard' element={<AdminRoutes />}>

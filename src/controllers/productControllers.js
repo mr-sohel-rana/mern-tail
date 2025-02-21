@@ -151,22 +151,30 @@ const checkout = async (req, res) => {
 
 const orders = async (req, res) => {
   try {
+    // Fetch orders sorted by createdAt in descending order (most recent first)
     const orders = await OrderModel.find({})
+      .sort({ createdAt: -1 }) // Sort by the latest orders first
       .populate({
-        path: 'cart.productId', // Populate productId inside cart array
-        model: 'Product' // Reference the Product model
+        path: "cart.productId", // Populate productId inside cart array
+        model: "Product", // Reference the Product model
       });
 
+    // Log the orders array to ensure they're sorted properly
+    console.log("Fetched orders (sorted by createdAt):", orders);
+
+    // Check if orders exist
     if (!orders || orders.length === 0) {
       return res.status(400).json({ status: "failed", message: "Orders not found" });
     }
 
+    // Return the fetched orders
     res.status(200).json({ status: "success", orders });
   } catch (error) {
-    console.error('Error fetching orders:', error);
-    res.status(500).json({ error: 'Server error while fetching orders' });
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ error: "Server error while fetching orders" });
   }
 };
+
 
  
 const order=async(req,res)=>{
@@ -218,6 +226,27 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
+const searchBykeyword=async(req,res)=>{
+ try{
+  const {keyword}=req.params;
+  const result=await Product.find({
+    $or:[{name:{$regex:keyword,$options:"i"}},
+      {description:{$regex:keyword,$options:"i"}},
+    ],})
+    if(!result){
+      res.status(400).json({status:"failed",message:"proudct not found"})
+    }
+    res.status(200).json({status:"succss",result:result})
+ }catch (error) {
+  console.error('Error updating order status:', error);
+  res.status(500).json({
+    status: 'error',
+    message: 'Something went wrong while updating the order status',
+  });
+}
+}
 module.exports={
-  CreateProduct,UpdateProduct,deleteProduct,product,allProduct,checkout,orders,order,updateOrderStatus
+  CreateProduct,UpdateProduct,deleteProduct,product,
+  allProduct,checkout,orders,
+  order,updateOrderStatus,searchBykeyword
 }
