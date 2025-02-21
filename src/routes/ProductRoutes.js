@@ -31,6 +31,7 @@ router.put("/product-update/:id", upload.fields([
   router.get("/orders/:userId",requireSignIn,productController.order)
   router.put("/orders/:orderId",requireSignIn,productController.updateOrderStatus)
   router.get("/search/:keyword",productController.searchBykeyword)
+  router.post("/productfilter", productController.productfilter);
 
   router.delete('/api/v1/delete-image', (req, res) => {
     const { imageName } = req.body;

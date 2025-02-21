@@ -245,8 +245,42 @@ const searchBykeyword=async(req,res)=>{
   });
 }
 }
+
+const productfilter = async (req, res) => {
+  try {
+    const { check = [], radio = [] } = req.body;  // Default to empty arrays if not provided
+
+    let args = {};
+
+    // Filter by categories if 'check' is not empty
+    if (check.length > 0) {
+      args.category = { $in: check };  // Assuming 'check' is an array of category IDs
+    }
+
+    // Filter by price if 'radio' is not empty
+    if (radio.length === 2) {  // Ensure that the radio array has exactly two values for price range
+      args.price = { $gte: radio[0], $lte: radio[1] };
+    }
+
+    // Fetch products based on the arguments
+    const products = await Product.find(args);
+
+    // Return the filtered products
+    res.status(200).json({ status: "success", products });
+
+  } catch (error) {
+    console.error('Error in productfilter:', error); // Log the error
+    res.status(500).json({
+      success: false,
+      message: 'Error filtering products',
+      error: error.message,
+    });
+  }
+};
+
+
 module.exports={
   CreateProduct,UpdateProduct,deleteProduct,product,
   allProduct,checkout,orders,
-  order,updateOrderStatus,searchBykeyword
+  order,updateOrderStatus,searchBykeyword,productfilter
 }
