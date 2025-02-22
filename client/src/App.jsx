@@ -25,6 +25,9 @@ import CheckoutPage from './pages/CheckoutPage';
  
 import Test from './pages/test';
 import Search from './pages/SearchReasult';
+import ForgetPassword from './pages/ForgetPassword';
+import VerifyOTP from './pages/VerifyOTP';
+import ResetPassword from './pages/ResetPassword';
  
  
  
@@ -44,6 +47,9 @@ function App() {
        <Route path='/checkout' element={<CheckoutPage />} />
        <Route path='/test' element={<Test />} />
        <Route path='/search' element={<Search />} />
+       <Route path='/forgot-password' element={<ForgetPassword />} />
+       <Route path='/varify-otp' element={<VerifyOTP />} />
+       <Route path='/reset-password' element={<ResetPassword />} />
 
        {/* admin routes */}
        <Route path='/dashboard' element={<AdminRoutes />}>

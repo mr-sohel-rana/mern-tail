@@ -51,7 +51,7 @@ const Login = () => {
     <Layout>
       <form
         onSubmit={handleSubmit}
-        className="mx-auto mt-5 border-2 border-blue-600 w-80 p-5 rounded-lg shadow-lg"
+        className="mx-auto mt-28 border-2 border-blue-600 w-80 p-5 rounded-lg shadow-lg"
       >
         <img 
           className="mx-auto w-24 h-24 rounded-full object-cover border-2 border-gray-300"
@@ -84,6 +84,12 @@ const Login = () => {
             required
           />
         </div>
+        <Link to="/forgot-password">
+        <span className="text-red-600 text-sm text-right block hover:underline">
+  Forgot Password
+</span>
+
+        </Link>
 
         {/* Submit Button */}
         <button

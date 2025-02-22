@@ -135,7 +135,7 @@ const Home = () => {
         <Test className='mt-5' />
       </div>
 
-      <div className='flex'>
+      <div className='flex '>
         {/* Category Filter Section */}
         <div className="mb-8">
           <h1 className="ml-2 font-semibold text-gray-800 mb-4">Selected Category</h1>
@@ -179,7 +179,7 @@ const Home = () => {
                 <div className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
               </div>
             ) : (
-              <div className="font-[sans-serif] bg-gray-100 p-4 mx-auto lg:max-w-7xl md:max-w-4xl sm:max-w-xl max-sm:max-w-sm">
+              <div className="font-[sans-serif]   p-4 mx-auto lg:max-w-7xl md:max-w-4xl sm:max-w-xl max-sm:max-w-sm">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6">
                   {currentProducts.map((p) => (
                     <div key={p._id} className="bg-white rounded p-4 cursor-pointer hover:-translate-y-1 transition-all relative shadow-lg">

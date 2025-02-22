@@ -18,7 +18,6 @@ const CreateCategory = () => {
         const { data } = await axios.get('http://localhost:5001/api/v1/allcategory');
         if (data.status === 'success') {
           setCategories(data.allCategory || []);
-          toast.success('Categories Fetched Successfully');
         } else {
           toast.error(data.message || 'Failed to fetch categories');
         }

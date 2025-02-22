@@ -54,7 +54,7 @@ const AdminProfile = () => {
                 src={
                   imageError
                     ? "/path/to/default-image.jpg"
-                    : `http://localhost:5001/api/v1/photo/${auth?.user?._id}`
+                    : `http://localhost:5001/api/v1/photo/${auth?.user?.id}`
                 }
                 alt="Profile"
                 onError={() => setImageError(true)}

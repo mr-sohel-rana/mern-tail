@@ -20,7 +20,7 @@ const Navbar = () => {
     <header className='fixed top-0 left-0 right-0 z-99 bg-white shadow-lg p-3'>
       <div className="flex justify-between items-center">
         <div className="logo">
-          <img className='h-16 w-16' src={logo} alt="Logo" />
+        <Link to="/">  <img className='h-16 w-16' src={logo} alt="Logo" /></Link>
         </div>
 
         <div>
