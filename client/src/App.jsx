@@ -28,6 +28,9 @@ import Search from './pages/SearchReasult';
 import ForgetPassword from './pages/ForgetPassword';
 import VerifyOTP from './pages/VerifyOTP';
 import ResetPassword from './pages/ResetPassword';
+import FirstPage from './try/FirstPage';
+import CategoryName from './try/categoryName';
+import TestDetails from './try/TestDetails';
  
  
  
@@ -40,10 +43,13 @@ function App() {
     <>
         <Routes>
        <Route path='/' element={<Home />} /> 
+       <Route path='/firstpage' element={<FirstPage />} /> 
+       <Route path='/category/:name' element={<CategoryName />} /> 
        <Route path='/login' element={<Login />} /> 
        <Route path='/register' element={<Register />} /> 
        <Route path='/cart' element={<Cart />} /> 
        <Route path='/details/:id' element={<ProductDetails/>} /> 
+       <Route path='/firstpage/details/:id' element={<TestDetails/>} /> 
        <Route path='/checkout' element={<CheckoutPage />} />
        <Route path='/test' element={<Test />} />
        <Route path='/search' element={<Search />} />
