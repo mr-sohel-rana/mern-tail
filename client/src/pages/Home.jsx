@@ -179,10 +179,10 @@ const Home = () => {
                 <div className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
               </div>
             ) : (
-              <div className="font-[sans-serif]   p-4 mx-auto lg:max-w-7xl md:max-w-4xl sm:max-w-xl max-sm:max-w-sm">
+              <div className="font-[sans-serif]  p-4 mx-auto lg:max-w-7xl md:max-w-4xl sm:max-w-xl max-sm:max-w-sm">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6">
                   {currentProducts.map((p) => (
-                    <div key={p._id} className="bg-white rounded p-4 cursor-pointer hover:-translate-y-1 transition-all relative shadow-lg">
+                    <div key={p._id} className="bg-white rounded p-4 cursor-pointer hover:scale-110   transition-all relative shadow-lg">
                       <div className="mb-4 bg-gray-100 rounded p-2">
                         <img
                           src={p.photos && p.photos.length > 0 ? `http://localhost:5001/uploads/${p.photos[0]}` : "/fallback-image.jpg"}

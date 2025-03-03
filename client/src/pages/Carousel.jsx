@@ -9,13 +9,13 @@ const CarouselCreate = () => {
   const images = [img1, img2, img3, img4];
 
   return (
-    <Carousel autoplay autoplaySpeed={5000} dots={true} effect="fade">
+    <Carousel autoplay autoplaySpeed={3000} dots={true} effect="slide">
       {images.map((img, index) => (
         <div key={index} className="h-[300px] md:h-[500px] w-full">
           <img
             src={img}
             alt={`Banner ${index + 1}`}
-            className="w-full h-full object-cover"
+            className="w-full p-2 h-full object-cover"
           />
         </div>
       ))}
