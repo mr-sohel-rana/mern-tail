@@ -9,9 +9,15 @@ const Cart = () => {
   const handleQuantityChange = (index, change) => {
     const updatedCart = [...cart];
     updatedCart[index].quantity += change;
-    if (updatedCart[index].quantity < 1) updatedCart[index].quantity = 1;
+  
+    if (updatedCart[index].quantity < 1) { 
+      updatedCart[index].quantity = 1;
+    }
+  
     setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Sync local storage
   };
+  
 
   const handleRemoveItem = (index) => {
     const updatedCart = cart.filter((_, i) => i !== index);
@@ -84,7 +90,7 @@ const Cart = () => {
                 <h3 className="text-sm sm:text-base font-bold text-gray-800 mt-auto">
                  Sub Totol: ${(item.quantity*item.price).toFixed(2)}
                 </h3>
-              </div>
+              </div> 
             </div>
           ))}
         </div>

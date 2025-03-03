@@ -171,6 +171,17 @@ const users=async(req,res)=>{
  }
  
  }
+
+ const allusers=async(req,res)=>{
+   try{
+    const result=await userModel.find({}).select("-photo");
+    res.status(200).json({status:"success",users:result})
+   }catch(e){
+    console.error(e); // Log error for debugging
+    res.status(500).json({ status: "failed", message: "Internal Server Error" });
+}
+
+ }
  
  const deleteUser=async(req,res)=>{
     try{
@@ -201,7 +212,10 @@ const users=async(req,res)=>{
   
 
         // Check if the user exists in the database
-        let user = await userModel.findOne({ email: emailTrimmed });
+        const user = await userModel.findOneAndUpdate(
+            { emailTrimmed },
+          
+          );
         if (!user) {
             console.log(`No user found with email: ${emailTrimmed}`);
             return res.status(400).json({ message: "User not found" });
@@ -306,5 +320,5 @@ const otpVerification = async (req, res) => {
   };
   
 module.exports={
-    read,Register,login,UpdateUser,user,users,photo,deleteUser,forgotPassword,otpVerification,resetPassword
+    read,Register,login,UpdateUser,user,users,photo,deleteUser,forgotPassword,otpVerification,resetPassword,allusers
 }

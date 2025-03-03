@@ -2,6 +2,7 @@ const Product = require("../models/productModel");
 const userModel = require("../models/userModel");
 const orderModel=require('../models/OrderModel');
 const OrderModel = require("../models/OrderModel");
+const categoryModel = require("../models/categporyModel");
  
 
 const CreateProduct = async (req, res) => {
@@ -278,9 +279,36 @@ const productfilter = async (req, res) => {
   }
 };
 
+const CategoryName = async (req, res) => {
+  const { name } = req.params; // categoryName to search in the category collection
+
+  try {
+    // Find the category by categoryName
+    const category = await categoryModel.findOne({ categoryName: { $regex: name, $options: 'i' } });
+
+    if (!category) {
+      return res.status(400).json({ status: "failed", message: "Category not found" });
+    }
+
+    // Find products that belong to the found category
+    const result = await Product.find({ category: category._id }) // Match products by category ID
+      .populate("category", "categoryName -_id")
+      .limit(10) // Populate only categoryName from Category collection, exclude _id
+      .exec();
+
+    if (result.length === 0) {
+      return res.status(400).json({ status: "failed", message: "No products found for this category" });
+    }
+
+    res.status(200).json({ status: "success", products: result });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: error.message });
+  }
+};
+
 
 module.exports={
   CreateProduct,UpdateProduct,deleteProduct,product,
   allProduct,checkout,orders,
-  order,updateOrderStatus,searchBykeyword,productfilter
+  order,updateOrderStatus,searchBykeyword,productfilter,CategoryName
 }

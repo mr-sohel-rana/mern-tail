@@ -18,6 +18,9 @@ router.put('/reset-password',controller.resetPassword)
 router.get('/photo/:id',requireSignIn,controller.photo)
 router.delete('/deleteUser/:id',requireSignIn,controller.deleteUser)
 
+router.get('/allusers',controller.allusers)
+
+
 router.get('/user-auth', requireSignIn, (req, res) => {
     res.status(200).json({ ok: true });
 });
