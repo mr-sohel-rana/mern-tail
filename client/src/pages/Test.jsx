@@ -8,44 +8,43 @@ const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Fetch categories from API
+  // Fetch categories
   const allCategory = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5001/api/v1/allcategory');
-      
-      if (data.status === 'success' && data.allCategory && data.allCategory.length > 0) {
-        setCategories(data.allCategory); // Update state with fetched categories
-        toast.success('Categories Fetched Successfully');
+      const { data } = await axios.get("http://localhost:5001/api/v1/allcategory");
+      if (data.status === "success" && data.allCategory.length > 0) {
+        setCategories(data.allCategory);
+        toast.success("Categories Fetched Successfully");
       } else {
-        toast.error('No categories found');
+        toast.error("No categories found");
       }
     } catch (error) {
-      toast.error('Something went wrong!');
-      setCategories([]); // Ensure categories is reset on error
+      toast.error("Something went wrong!");
+      setCategories([]);
     }
   };
 
-  // Automatically move to the next image every 3 seconds
   useEffect(() => {
-    allCategory(); // Fetch categories on component mount
+    allCategory();
 
     const interval = setInterval(() => {
-      if (!isHovered && categories.length > 0) { // Only auto-slide if not hovered and categories are available
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % categories.length);
+      if (!isHovered && categories.length > 0) {
+        setCurrentIndex((prev) => (prev + 1) % categories.length);
       }
     }, 3000);
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, [categories.length, isHovered]); // Add isHovered as a dependency
+    return () => clearInterval(interval);
+  }, [categories.length, isHovered]);
 
-  // Get the current set of 6 categories to display
-  const visibleCategories = [];
-  if (categories.length > 0) {
-    for (let i = 0; i < 6; i++) {
-      const index = (currentIndex + i) % categories.length;
-      visibleCategories.push(categories[index]);
-    }
-  }
+  // Visible Categories (Dynamic Grid Size)
+  const getVisibleCount = () => {
+    if (window.innerWidth >= 1024) return 6;
+    if (window.innerWidth >= 768) return 5;
+    if (window.innerWidth >= 640) return 4;
+    return 3;
+  };
+
+  const visibleCategories = categories.slice(currentIndex, currentIndex + getVisibleCount());
 
   return (
     <div
@@ -53,27 +52,26 @@ const Test = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {isHovered && (
+      {isHovered && categories.length > getVisibleCount() && (
         <button
-          className="absolute left-0 z-10 p-2 bg-black bg-opacity-50 text-white rounded-full cursor-pointer text-2xl"
-          onClick={() => setCurrentIndex((prevIndex) => (prevIndex - 1 + categories.length) % categories.length)}
+          className="absolute left-2 z-10 p-2 bg-black bg-opacity-50 text-white rounded-full cursor-pointer hover:bg-opacity-80 transition-all text-2xl"
+          onClick={() =>
+            setCurrentIndex((prev) => (prev - 1 + categories.length) % categories.length)
+          }
         >
           &lt;
         </button>
       )}
 
-      <div className="flex justify-center items-center w-4/5">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 transition-transform duration-700 ease-in-out">
         {visibleCategories.map((category, index) => (
-          <Link
-            to="/" // Update the link destination as needed
-            key={category?._id || index} // Ensure a unique key
-            className="flex-shrink-0 w-1/6 box-border"
-          >
+          <Link to="/" key={category?._id || index} className="box-border">
             <div>
               <img
                 src={`http://localhost:5001/api/v1/categoryimage/${category?._id}`}
-                alt={category?.categoryName || `Category ${index}`}
-                className="w-36 h-40 block"
+                alt={category?.categoryName}
+                className="h-40 w-full block rounded-lg shadow-md hover:scale-105 transition-transform"
+                onError={(e) => (e.target.src = "/images/fallback.png")}
               />
               <p className="text-center mt-2">{category?.categoryName}</p>
             </div>
@@ -81,10 +79,10 @@ const Test = () => {
         ))}
       </div>
 
-      {isHovered && (
+      {isHovered && categories.length > getVisibleCount() && (
         <button
-          className="absolute right-0 z-10 p-2 bg-black bg-opacity-50 text-white rounded-full cursor-pointer text-2xl"
-          onClick={() => setCurrentIndex((prevIndex) => (prevIndex + 1) % categories.length)}
+          className="absolute right-2 z-10 p-2 bg-black bg-opacity-50 text-white rounded-full cursor-pointer hover:bg-opacity-80 transition-all text-2xl"
+          onClick={() => setCurrentIndex((prev) => (prev + 1) % categories.length)}
         >
           &gt;
         </button>

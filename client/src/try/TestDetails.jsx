@@ -136,11 +136,11 @@ const TestDetails = () => {
                 }, 1000);
               }}
             >
-<<<<<<< HEAD
-              BUY NOW 🚀 fdfdfdfdfdfa
-=======
+ 
+              BUY NOW 🚀  
+ 
               BUY NOW 🚀
->>>>>>> 803a9ec45b0d8a18637404dcf95754be9a31ad56
+ 
             </button>
           </div>
         </div>

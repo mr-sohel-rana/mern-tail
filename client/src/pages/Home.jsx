@@ -135,10 +135,10 @@ const Home = () => {
         <Test className='mt-5' />
       </div>
 
-      <div className='flex '>
+      <div className='flex  '>
         {/* Category Filter Section */}
-        <div className="mb-8">
-          <h1 className="ml-2 font-semibold text-gray-800 mb-4">Selected Category</h1>
+        <div className="mb-8 hidden sm:hidden md:block lg:block">
+          <h1 className="ml-2 font-semibold  text-gray-800 mb-4">Selected Category</h1>
           <div className="space-y-4 flex flex-col">
             {categories.map((c) => (
               <Checkbox
@@ -153,7 +153,7 @@ const Home = () => {
         </div>
 
         {/* Price Filter Section */}
-        <div className="mb-8">
+        <div className="mb-8 hidden sm:hidden md:block lg:block">
           <h2 className="font-semibold text-gray-800 mb-4">Filter By Price</h2>
           <div className="space-y-4">
             <Radio.Group onChange={handlePriceFilter} value={radio}>
@@ -172,15 +172,15 @@ const Home = () => {
         {/* Product List Section */}
         <div className="container mt-10">
           <div className="flex-1 p-4">
-            <h1 className="text-2xl font-semibold mb-6">All Products</h1>
+            <h1 className="text-2xl text-center font-semibold mb-6">All Products</h1>
 
             {isLoading || isFiltering ? (
               <div className="flex justify-center items-center">
                 <div className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
               </div>
             ) : (
-              <div className="font-[sans-serif]  p-4 mx-auto lg:max-w-7xl md:max-w-4xl sm:max-w-xl max-sm:max-w-sm">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6">
+              <div className="font-[sans-serif]  p-1 mx-auto lg:max-w-7xl md:max-w-4xl sm:max-w-xl max-sm:max-w-sm">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 max-xl:gap-4 gap-2">
                   {currentProducts.map((p) => (
                     <div key={p._id} className="bg-white rounded p-4 cursor-pointer hover:scale-110   transition-all relative shadow-lg">
                       <div className="mb-4 bg-gray-100 rounded p-2">
